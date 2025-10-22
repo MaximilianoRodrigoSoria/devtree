@@ -1,18 +1,8 @@
-import  express from 'express';
+import server from "./server.js";
 
+const  PORT = process.env.PORT || 3000
 
-const app = express();
-const port = process.env.PORT || 3000;
-
-//Routing
-app.get('/', (req, res) => {
-        res.send('Hello World!');
+server.listen(PORT, () => {
+        console.log(`Server is running on http://localhost:${PORT}`)
 })
 
-app.get('/ecommerce', (req, res) => {
-        res.send('This is ecommerce!');
-})
-
-app.listen(port, () => {
-        console.log('Server is running on http://localhost:' + port);
-})
