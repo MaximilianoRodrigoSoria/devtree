@@ -12,6 +12,8 @@ services:
       - "27017:27017"
     volumes:
       - mongodb_data:/data/db
+      - ./docker/init-db.js:/docker-entrypoint-initdb.d/01-init-db.js
+      - ./docker/load-users.js:/docker-entrypoint-initdb.d/02-load-users.js
     networks:
       - devtree_network
 
@@ -21,4 +23,3 @@ volumes:
 networks:
   devtree_network:
     driver: bridge
-

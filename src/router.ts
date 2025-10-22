@@ -1,4 +1,5 @@
 import  { Router } from 'express';
+import { colorsMessage } from "./config/colorsMessage.js";
 
 const  router = Router();
 
@@ -9,7 +10,7 @@ router.get('/', (req, res) => {
 
 /** Autenticacion y  Registro **/
 router.post('/auth/register', (req, res) => {
-    console.log(req.body);
+    console.log(colorsMessage.debug(JSON.stringify(req.body)));
     res.send('OK');
 });
 
