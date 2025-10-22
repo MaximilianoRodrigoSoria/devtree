@@ -3,19 +3,21 @@ import type {Request, Response} from "express";
 import {colorsMessage} from "../config/colorsMessage.js";
 import {hashPassword} from "../utils/auth.js";
 import * as slugifyModule from "slugify";
+import {validationResult} from  'express-validator';
 const slugify = (slugifyModule as any).default || slugifyModule;
 export  const  createAccount  =  async (req: Request, res: Response) => {
     const {email, password, handle} = req.body;
     console.log(colorsMessage.debug('Creating user with email:'+ email + ' handle:' + (handle || '')));
 
-    // Validar que handle exista y no sea vacío
-    if (!handle || typeof handle !== 'string' || !handle.trim()) {
-        const msg = 'Handle is required';
-        console.log(colorsMessage.error(msg));
-        return res.status(400).json({ error: msg });
+
+    // Validar inputs usando express-validator
+    let errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        const errorMessages = errors.array().map(err => err.msg).join(', ');
+        console.log(colorsMessage.error('Validation errors: ' + errorMessages));
+        return res.status(400).json({ error: errorMessages });
     }
 
-    // Aplicar slug al handle y comprobar que no quede vacío
     const slugHandle = slugify(handle, { replacement: '_', lower: true, strict: true });
 
      console.log(slugHandle)
