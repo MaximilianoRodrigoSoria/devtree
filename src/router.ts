@@ -7,8 +7,10 @@ router.get('/', (req, res) => {
     res.send('Hello World!');
 });
 
-router.get('/nosotros', (req, res) => {
-    res.send('Nosotros');
+/** Autenticacion y  Registro **/
+router.post('/auth/register', (req, res) => {
+    console.log(req.body);
+    res.send('OK');
 });
 
 
