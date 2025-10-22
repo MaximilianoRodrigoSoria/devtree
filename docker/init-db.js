@@ -8,7 +8,7 @@ db.createCollection('users', {
     validator: {
         $jsonSchema: {
             bsonType: "object",
-            required: ["email", "password", "name"],
+            required: ["email", "password", "name", "handle"],
             properties: {
                 email: {
                     bsonType: "string",
@@ -21,6 +21,10 @@ db.createCollection('users', {
                 name: {
                     bsonType: "string",
                     description: "Nombre del usuario (requerido)"
+                },
+                handle: {
+                    bsonType: "string",
+                    description: "Handle del usuario (requerido, único)"
                 },
                 createdAt: {
                     bsonType: "date",
@@ -37,5 +41,7 @@ db.createCollection('users', {
 
 // Crear índice único para email
 db.users.createIndex({ "email": 1 }, { unique: true });
+// Crear índice único para handle
+db.users.createIndex({ "handle": 1 }, { unique: true });
 
 print('✅ Colección users creada exitosamente con índice único en email');

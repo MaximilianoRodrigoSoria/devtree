@@ -4,6 +4,7 @@ interface IUser {
     email: string;
     password: string;
     name: string;
+    handle: string;
 }
 
 const userSchema = new Schema({
@@ -21,6 +22,12 @@ const userSchema = new Schema({
     name: {
         type: String,
         required: true,
+        trim: true
+    },
+    handle: {
+        type: String,
+        required: true,
+        unique: true,
         trim: true
     }
 }, {
